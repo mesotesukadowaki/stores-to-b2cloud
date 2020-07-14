@@ -1,178 +1,175 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- font awesome -->
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <!-- jquery -->
-    <script   src="https://code.jquery.com/jquery-3.4.1.slim.min.js"   integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="   crossorigin="anonymous"></script>
-    <!-- bootstrap -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <!-- - tempus dominous -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-    <!--  -->
-    <script src="./build/index.js"></script>
-    <title>STORES to B2クラウド</title>
-    <style>
-     #message, #warning, #error, #download {
-         display: none;
-     }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div  class="pb-2 mt-4 mb-2 border-bottom">
-        <h1>STORES to B2クラウド</h1>
-      </div>
-      <div>
-        <form class="form">
-          <div class="form-group col-sm-6">
-            <label for="inputCsv">入力ファイル（STORESのオーダー csv）</label>
-            <input type="file" accept="text/csv" class="form-control-file" id="inputCsv">
-          </div>
 
-          <div class="alert alert-info col-sm-10">
-            <a class="btn btn-secondary" data-toggle="collapse" href="#sender" role="button" ria-expanded="false" aria-controls="sender">
-              デフォルトの依頼人（押すと開きます）
-            </a>
-            <div class="collapse" id="sender">
-              <div class="form-group col-sm-4">
-                <label for="senderZip">郵便番号</label>
-                <input class="form-control form-control-sm" id="senderZip" type="text" />
-              </div>
-              <div class="form-group col-sm-8">
-                <label for="senderAddress">住所</label>
-                <input class="form-control form-control-sm" id="senderAddress" type="text" />
-              </div>
-              <div class="form-group col-sm-8">
-                <label for="senderAddress2">アパート・マンション</label>
-                <input class="form-control form-control-sm" id="senderAddress2" type="text" />
-              </div>
-              <div class="form-group col-sm-8">
-                <label for="senderTel">電話</label>
-                <input class="form-control form-control-sm" id="senderTel" type="text" />
-              </div>
-              <div class="form-group col-sm-4">
-                <label for="senderName">名前</label>
-                <input class="form-control form-control-sm" id="senderName" type="text" />
-              </div>
-            </div>
-          </div>
-          <div class="alert alert-info col-sm-10">
-            <a class="btn btn-secondary" data-toggle="collapse" href="#b2customer" role="button" ria-expanded="false" aria-controls="b2customer">
-              請求先情報（押すと開きます）
-            </a>
-            <div class="collapse" id="b2customer">
-              <div class="form-group col-sm-5">
-                <label for="customerId">顧客コード</label>
-                <input class="form-control form-control-sm" id="customerId" type="text" />
-              </div>
-              <div class="form-group col-sm-5">
-                <label for="customerKind">請求先分類コード（空白可）</label>
-                <input class="form-control form-control-sm" id="customerKind" type="text" />
-              </div>
-              <div class="form-group col-sm-5">
-                <label for="fareId">運賃管理番号</label>
-                <input class="form-control form-control-sm" id="fareId" type="text" value="01"/>
-              </div>
-            </div>
-          </div>
-          <div class="alert alert-info col-sm-10">
-            <a class="btn btn-secondary" data-toggle="collapse" href="#b2email" role="button" ria-expanded="false" aria-controls="b2email">
-              お届け予定eメール設定（押すと開きます）
-            </a>
-            <div class="collapse" id="b2email">
-              <div class="form-group col-sm-6">
-                <div class="form-group form-check">
-                  <input type="checkbox" class="form-check-input" id="useScheduleEmail">
-                  <label class="form-check-label" for="useScheduleEmail">お届け予定eメールを利用する</label>
-                </div>                
-              </div>
-              <div class="form-group col-sm-8">
-                <label for="scheduleEmailMessage">メッセージ</label>
-                <textarea class="form-control" id="scheduleEmailMessage" rows="4" >このたびは、当社をご利用いただきありがとうございました。
-今回ご注文頂きました商品を本日クロネコヤマトで発送いたしました。</textarea>
-              </div>
-            </div>
-          </div>
-          <div class="form-group form-inline">
-            <div class="form-group col-sm-5">
-              <label for="sendKind" class="mr-2">送り状種類</label>
-              <select class="form-control col-sm-6" id="sendKind">
-                <option value='0'>発払い</option>
-                <option value='3'>DM便</option>
-                <option value='4'>タイム</option>
-                <option value='5'>着払い</option>
-                <option value='7'>ネコポス</option>
-                <option value='8'>宅急便コンパクト</option>
-              </select>
-            </div>
-            <div class="form-group col-sm-5">
-              <label for="cool" class="mr-2">クール区分</label>
-              <select class="form-control col-sm-6" id="cool">
-                <option value='0'>通常</option>
-                <option value='2'>クール冷蔵</option>
-                <option value='1'>クール冷凍</option>
-              </select>
-            </div>
-          </div>
-          
-          <datalist id="handling-list">
-            <option value="精密機器"></option>
-            <option value="ワレ物注意"></option>
-            <option value="下積厳禁"></option>
-            <option value="天地無用"></option>
-            <option value="ナマモノ"></option>
-            <option value="水濡厳禁"></option>
-          </datalist>
-          <div class="form-group form-inline">
-            <div class="form-group col-sm-5">
-              <label for="handling1" class="mr-2">荷扱い1</label>
-              <input list="handling-list" class="form-control custom-select custom-select-sm" id="handling1" type="text" />
-            </div>
-            <div class="form-group col-sm-5">
-              <label for="handling2" class="mr-2">荷扱い2</label>
-              <input list="handling-list" class="form-control custom-select custom-select-sm" id="handling2" type="text" />
-            </div>
-          </div>
-          <div class="form-group col-sm-6">
-            <label for="contentsName">品名</label>
-            <input class="form-control form-control-sm" id="contentsName" type="text" />
-          </div>
-          <div class="form-group col-sm-6">
-            <label for="sendDate">発送日</label>
-            <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-              <input id="sendDate" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
-              <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-              </div>
-            </div>
-            <script type="text/javascript">
-             $(function () {
-                 $('#datetimepicker4').datetimepicker({
-                     minDate: moment(),
-                     defaultDate: moment(),
-                     locale: 'ja',
-                     format: 'L'
-                 });
-             });
-            </script>
-          </div>
-          <button id="exec" type="button" class="btn btn-primary" disabled>変換</button>
-        </form>
-        <div class="alert alert-success" id="download">
-          <a href="#" download="for-b2-cloud.csv" id="download-link">変換済み：B2クラウド用csv</a>
-        </div>
-        <div class="alert alert-danger" role="alert" id="error">
-        </div>
-        <div class="alert alert-warning" role="alert" id="warning">
-        </div>
-        <div class="alert alert-primary col-sm-12" role="alert" id="message">
-        </div>
-      </div>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Stores-to-b2cloud : convert STORES order csv to B2cloud csv">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Stores-to-b2cloud</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/mesotesukadowaki/stores-to-b2cloud">View on GitHub</a>
+
+          <h1 id="project_title">Stores-to-b2cloud</h1>
+          <h2 id="project_tagline">convert STORES order csv to B2cloud csv</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/mesotesukadowaki/stores-to-b2cloud/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/mesotesukadowaki/stores-to-b2cloud/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
     </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="stores-to-b2クラウド" class="anchor" href="#stores-to-b2%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STORES to B2クラウド</h1>
+<p><a href="https://stores.jp">STORES</a>の<a href="https://officialmag.stores.jp/entry/kaigyou/kinou-ordercsv">オーダーcsv</a>を、<a href="http://www.kuronekoyamato.co.jp/ytc/campaign/B2cloud/">ヤマト運輸 B2クラウド</a>の<a href="https://bmypage.kuronekoyamato.co.jp/bmypage/pdf//exchange.pdf">送り状基本レイアウトcsv</a>に変換します。</p>
+<p>現時点では、利用者がWebサーバを設置する必要があります。全ての処理はブラウザ側で行われるので、顧客データがWebに流れる心配がありません。また、ローカルPCのWebサーバでも問題なく動作します。</p>
+<p><img src="stores-to-b2cloud.png" alt=""></p>
+<h2>
+<a id="特徴" class="anchor" href="#%E7%89%B9%E5%BE%B4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>特徴</h2>
+<p>オーダーcsvからB2クラウドのレイアウト変更は、B2クラウドの紐付け機能でもできますが、このプログラムでは以下のことができます。</p>
+<ul>
+<li>「依頼主」を原則として事業者に設定するが、STORESの「ギフト」で購入されたものは、購入者が依頼主に設定される。</li>
+<li>複数アイテムが含まれるひとつの注文を、B2クラウド向けにひとつにまとめる（B2クラウドの紐付け機能を使った場合は、そのままだと伝票が２つ出てしまう）</li>
+<li>STORESのオーダーで「備考」を表示する。「備考」に時間指定などがあった場合、B2クラウド側で指定するときに利用できる。</li>
+</ul>
+<h3>
+<a id="storesのb2クラウド対応との比較" class="anchor" href="#stores%E3%81%AEb2%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E5%AF%BE%E5%BF%9C%E3%81%A8%E3%81%AE%E6%AF%94%E8%BC%83" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STORESのB2クラウド対応との比較</h3>
+<p>2020-6-17、<a href="https://officialmag.stores.jp/entry/kaigyou/kinou-okurijo-yamato">STORES自身がB2クラウドに対応</a>しました<g-emoji class="g-emoji" alias="clap" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f44f.png">👏</g-emoji></p>
+<p>現時点での差異は以下のとおりです。（STORES本体に現時点でははいっていない機能も、全部はいるといいなー）</p>
+<h4>
+<a id="stores-to-b2クラウドでは行っていないもの" class="anchor" href="#stores-to-b2%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E3%81%A7%E3%81%AF%E8%A1%8C%E3%81%A3%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E3%82%82%E3%81%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STORES-to-B2クラウドでは行っていないもの</h4>
+<ul>
+<li>STORES本体の機能では、「品名1」に購入アイテム名がはいります。STORES-to-B2クラウドでは固定の値が入ります。</li>
+</ul>
+<h4>
+<a id="stores本体機能では行っていないがb2クラウド側で一括設定可能なもの" class="anchor" href="#stores%E6%9C%AC%E4%BD%93%E6%A9%9F%E8%83%BD%E3%81%A7%E3%81%AF%E8%A1%8C%E3%81%A3%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E3%81%8Cb2%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E5%81%B4%E3%81%A7%E4%B8%80%E6%8B%AC%E8%A8%AD%E5%AE%9A%E5%8F%AF%E8%83%BD%E3%81%AA%E3%82%82%E3%81%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STORES本体機能では行っていないが、B2クラウド側で一括設定可能なもの</h4>
+<p>以下の2点は、STORES-to-B2クラウドで事前に設定できます。
+STORES本体の機能には実装されていませんが、B2クラウド側に読み込んだあとに一括設定すればOKです。</p>
+<ul>
+<li>送り状種別</li>
+<li>荷扱い</li>
+<li>発送日（STORES本体機能では当日固定で出力される）</li>
+</ul>
+<h4>
+<a id="stores本体機能で行っておらずb2クラウド側でも一括設定ができないもの" class="anchor" href="#stores%E6%9C%AC%E4%BD%93%E6%A9%9F%E8%83%BD%E3%81%A7%E8%A1%8C%E3%81%A3%E3%81%A6%E3%81%8A%E3%82%89%E3%81%9Ab2%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E5%81%B4%E3%81%A7%E3%82%82%E4%B8%80%E6%8B%AC%E8%A8%AD%E5%AE%9A%E3%81%8C%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E3%82%82%E3%81%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STORES本体機能で行っておらず、B2クラウド側でも一括設定ができないもの</h4>
+<p>以下の2点は、ひとつずつSTORESのオーダー情報を確認しながらB2クラウド設定が必要になります。</p>
+<ul>
+<li>STORES-to-B2クラウドでは、「ギフト」機能が使われた場合には、購入者が依頼主に設定されます。STORES本体の機能では、「依頼主」は固定の値です。</li>
+<li>STORES-to-B2クラウドでは、「お届け予定eメール設定」を購入者のe-mail宛に設定します。STORES本体の機能では「お届け予定eメール設定」は設定されません。</li>
+</ul>
+<h2>
+<a id="ビルド" class="anchor" href="#%E3%83%93%E3%83%AB%E3%83%89" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ビルド</h2>
+<p><a href="https://github.com/skoji/stores-to-b2cloud/releases">リリース</a>ページから、ビルド済みのzipをダウンロードできます。</p>
+<p>node.jsを用意すれば、手元でビルドすることもできます。</p>
+<div class="highlight highlight-source-shell"><pre>npm install <span class="pl-k">&amp;&amp;</span> npm run build</pre></div>
+<h2>
+<a id="設定" class="anchor" href="#%E8%A8%AD%E5%AE%9A" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>設定</h2>
+<p><code>default-data.json</code>を用意します。<code>dafault-data-template.json</code>をもとにしてください。</p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>senderZip<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>1000001<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>senderAddress<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>東京都千代田区千代田1-1-1<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>senderAddress2<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>山田荘101<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>senderTel<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>090-1111-1111<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>senderName<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>山田たろう<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>customerId<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>1234567890<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>contentsName<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>計算機<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>handling1<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>精密機器<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>handling2<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>水濡厳禁<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>customerKind<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>fareId<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>01<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>cool<span class="pl-pds">"</span></span> : <span class="pl-c1">0</span>,
+  <span class="pl-s"><span class="pl-pds">"</span>sendKind<span class="pl-pds">"</span></span> : <span class="pl-c1">0</span>,
+  <span class="pl-s"><span class="pl-pds">"</span>useScheduleEmail<span class="pl-pds">"</span></span> : <span class="pl-c1">true</span>,
+  <span class="pl-s"><span class="pl-pds">"</span>scheduleEmailMessage<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>このたびは、当社をご利用いただきありがとうございました。<span class="pl-cce">\n</span>今回ご注文頂きました商品を本日クロネコヤマトで発送いたしました。<span class="pl-pds">"</span></span>
+}</pre></div>
+<ul>
+<li>
+<code>sender</code>で始まる要素は、デフォルトの依頼人です。</li>
+<li>
+<code>contentsName</code>は品名にはいります。（STORESのアイテム名は今は反映させていません）</li>
+<li>
+<code>handling1</code>・<code>handling2</code>は、荷扱い１・荷扱い２に入ります。精密機器・ワレ物注意・下積厳禁・天地無用・ナマモノ・水濡厳禁がB2クラウドのUIから指定できる既定値ですが、任意の文字列を受け付けます。</li>
+<li>
+<code>customerId</code>は、B2クラウドの顧客コードです。</li>
+<li>
+<code>customerKind</code>は、B2クラウドの請求先分類コードです。</li>
+<li>
+<code>fareId</code>は、B2クラウドの運賃管理番号です。</li>
+<li>
+<code>cool</code>はクール便区分です。0：通常 2:クール冷蔵 1:クール冷凍</li>
+<li>
+<code>sendKind</code>は送り状種類です。0 : 発払い 3 : ＤＭ便 4 : タイム 5 : 着払い 7 : ネコポス 8 : 宅急便コンパクト</li>
+<li>
+<code>useScheduleEmail</code>: お届け完了eメールを利用するかどうか設定します。trueで利用、falseで利用しない。</li>
+<li>
+<code>scheduldEmailMessage</code>: お届け完了eメールのメッセージ部分テキストです。</li>
+</ul>
+<h2>
+<a id="設置" class="anchor" href="#%E8%A8%AD%E7%BD%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>設置</h2>
+<p>Webサーバ上の適切な場所に、<code>index.html</code>、<code>build/index.js</code>、<code>default-data.config</code>を設置してください。rsyncを使う場合は、<code>deploy-template.sh</code>も参考になるでしょう。</p>
+<h2>
+<a id="使い方" class="anchor" href="#%E4%BD%BF%E3%81%84%E6%96%B9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>使い方</h2>
+<p>ページを開き、「入力ファイル」に、STORESからダウンロードしたオーダーcsvを指定します。その他の設定を必要に応じて変更した上で、「変換」ボタンを押してください。
+「B2クラウド用csvダウンロード」のリンクが現れます。STORESオーダーで備考に書かれていることがあれば、その下の領域に表示されます。</p>
+<p>ダウンロードしたcsvを「送り状発行システムB2クラウド」の「外部データから発行」で、「基本レイアウト(csv)」を選択した上でアップロードしてください。
+「取り込み開始行」は2行目です。</p>
+<h2>
+<a id="利用上の注意点" class="anchor" href="#%E5%88%A9%E7%94%A8%E4%B8%8A%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>利用上の注意点</h2>
+<h3>
+<a id="オーダーのステータス" class="anchor" href="#%E3%82%AA%E3%83%BC%E3%83%80%E3%83%BC%E3%81%AE%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>オーダーのステータス</h3>
+<ul>
+<li>STORESでステータスが「未注文」または「入金待ち」のオーダーを変換します。「入金待ち」のオーダーについては画面上に警告メッセージを表示します。</li>
+<li>「キャンセル」や「完了」のデータが含まれていた場合は、変換処理全体を行いません。</li>
+</ul>
+<h3>
+<a id="住所情報" class="anchor" href="#%E4%BD%8F%E6%89%80%E6%83%85%E5%A0%B1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>住所情報</h3>
+<p>STORESの住所情報は、B2クラウドの情報ほど細かく分かれていません。このため、「アパート・マンション名」が正しく抽出できません。
+カタカナが2文字以上続く場所から後を「アパート・マンション名」とみなして分割しますが、カタカナではないアパート名などで問題が発生します。</p>
+<p>B2クラウドで読み込み後に修正してください。</p>
+<h2>
+<a id="変換後のcsvをexcelで開く" class="anchor" href="#%E5%A4%89%E6%8F%9B%E5%BE%8C%E3%81%AEcsv%E3%82%92excel%E3%81%A7%E9%96%8B%E3%81%8F" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>変換後のcsvをExcelで開く</h2>
+<p>文字コードがUTF-8のため、Excelで直接開くと文字化けします(Numbersでは問題ありません）。もしExcelで開きたい場合は、Excelの「外部データの取り込み」を利用してください。手順は以下の通りです。</p>
+<ol>
+<li>Excelで新規ファイルを開く。</li>
+<li>「データ」タブの「テキストファイル」を押す。</li>
+<li>csvファイルを指定し、「データ取り出し」を押す。</li>
+<li>「元のファイル」のプルダウンメニューで「Unicode（UTF-8)」を選択し、「次へ」を押す。</li>
+<li>「区切り文字」で「カンマ」だけを選択する。（「タブ」などのチェックは外す）。「連続した区切り文字は一文字として扱う」のチェックが入っていないことを確認する。「文字列の引用符」は「"」を選ぶ。「「次へ」を押す。</li>
+<li>「列のデータ形式」は標準を選ぶ。「完了」を押す。</li>
+<li>「OK」を押す。</li>
+</ol>
+<h2>
+<a id="ライセンスなど" class="anchor" href="#%E3%83%A9%E3%82%A4%E3%82%BB%E3%83%B3%E3%82%B9%E3%81%AA%E3%81%A9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ライセンスなど</h2>
+<ul>
+<li>
+<a href="https://github.com/polygonplanet/encoding.js/">encoding.js</a>を使っています。（encoding.jsの<a href="https://github.com/polygonplanet/encoding.js/blob/master/LICENSE">ライセンスはMIT</a>です）</li>
+<li>単純なコードで、改造は簡単だと思います。必要があればforkして変えていってください。</li>
+<li>AGPL3.0であることにご留意ください。万が一別のライセンスをご希望の場合は<a href="mailto:skoji@skoji.jp">skoji@skoji.jp</a>までお問い合わせください。</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Stores-to-b2cloud maintained by <a href="https://github.com/mesotesukadowaki">mesotesukadowaki</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
   </body>
 </html>
